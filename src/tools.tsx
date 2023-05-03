@@ -27,9 +27,9 @@ export interface homeworkItem {
     "state_CN": string,
 }
 
-enum state {
-    '0' = '未提交',
-    '2' = '互评中'
+const state = {
+    0: '未提交',
+    2: '未互评',
 }
 
 export class Tools {
@@ -38,10 +38,10 @@ export class Tools {
         bypass: /读书心得/gm
     }
 
-    public async getUndoneHomework(limit:number): Promise<homeworkList> {
+    public async getUndoneHomework(limit:number): Promise<(homeworkList | homeworkItem)[]> {
         const token = this.getToken()
         const classList = await this.getAllClassList(token, limit)
-        let undoneList = []
+        let undoneList:(homeworkList | homeworkItem)[] = []
         for (let classItem of classList) {
             //跳过不需要找的课程
             if(this.config.bypass.exec(classItem.name)){
@@ -62,7 +62,7 @@ export class Tools {
             }
         }
 
-        return undoneList as homeworkList
+        return undoneList
     }
 
     private getToken(): string {

@@ -1,5 +1,5 @@
 import './App.css';
-import {Tools} from './tools'
+import {Tools, homeworkItem} from './tools'
 import {Component} from 'react'
 import {Button, Table, Space} from 'antd';
 
@@ -29,7 +29,7 @@ class App extends Component<any, any> {
             },
             {
                 title: '动作',
-                render: (_, record) => (
+                render: (_:any, record:homeworkItem) => (
                     <Space size="middle">
                         <a href={record.url}>飞过去</a>
                     </Space>
@@ -52,7 +52,7 @@ class App extends Component<any, any> {
     render() {
         return (
             <div className={'App'}>
-                <Table columns={this.state.columns} dataSource={this.state.dataSource} rowKey={(record) => record.i}/>
+                <Table columns={this.state.columns} dataSource={this.state.dataSource} rowKey={(record) => record.id}/>
                 <div className={'config-wrapper'}>
                     <Space size={'middle'}>
                         <Button onClick={this.onCheckClick} type={"primary"}
