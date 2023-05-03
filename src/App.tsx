@@ -52,7 +52,7 @@ class App extends Component<any, any> {
     render() {
         return (
             <div className={'App'}>
-                <Table columns={this.state.columns} dataSource={this.state.dataSource} rowKey={(record) => record.id}/>
+                <Table columns={this.state.columns} dataSource={this.state.dataSource} rowKey={(record) => record.i}/>
                 <div className={'config-wrapper'}>
                     <Space size={'middle'}>
                         <Button onClick={this.onCheckClick} type={"primary"}
