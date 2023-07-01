@@ -6,8 +6,11 @@ import {Button, Table, Space} from 'antd';
 
 class App extends Component<any, any> {
     private Tool: Tools = new Tools()
+    private divElement: HTMLDivElement | null = null
 
     state = {
+        isShow: false,
+        box_height: 200,
         dataSource: [],
         isButtonLoading: false,
         columns: [
@@ -49,9 +52,30 @@ class App extends Component<any, any> {
         })
     }
 
+    onShowHideClick = ():void => {
+        this.getBoxHeight()
+        let isShow = this.state.isShow
+        this.setState({
+            isShow: !isShow,
+        })
+    }
+
+    getBoxHeight = ():void => {
+        const height:number | undefined = this.divElement?.clientHeight
+        console.log(`clientHeight = ${height}`)
+        this.setState({
+            box_height: height
+        })
+    }
+
+    componentDidMount() {
+        this.getBoxHeight()
+    }
+
     render() {
         return (
-            <div className={'App'}>
+            <div className={'App'} style={this.state.isShow ? {} : {transform: `translateY(${this.state.box_height-65}px)`}} ref={ (divElement) => { this.divElement = divElement } }>
+                <a onClick={this.onShowHideClick} className={'showhide-button'}>{this.state.isShow ? '收起' : '展开'}</a>
                 <Table columns={this.state.columns} dataSource={this.state.dataSource} rowKey={(record) => record.id}/>
                 <div className={'config-wrapper'}>
                     <Space size={'middle'}>
@@ -59,7 +83,6 @@ class App extends Component<any, any> {
                                 loading={this.state.isButtonLoading}>查询作业</Button>
                     </Space>
                 </div>
-
             </div>
         )
     }

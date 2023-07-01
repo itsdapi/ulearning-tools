@@ -8,7 +8,7 @@ ReactDOM.createRoot(
         const app = document.createElement('div');
         app.style.position = 'fixed'
         app.style.left = '20px'
-        app.style.bottom = '20px'
+        app.style.bottom = '0px'
         app.style.zIndex = '100'
         document.body.append(app);
         return app;
